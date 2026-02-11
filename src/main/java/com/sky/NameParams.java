@@ -6,5 +6,4 @@ import jakarta.ws.rs.QueryParam;
 
 public record NameParams(
         @QueryParam("name") String name,
-        @HeaderParam("X-Token") String token
-        ){}
+        @HeaderParam("X-Token") String token){}

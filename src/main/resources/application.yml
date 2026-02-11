@@ -1,0 +1,21 @@
+quarkus:
+  rest-client:
+    pokemon-api:
+      read-timeout: '1000'
+      connect-timeout: '55'
+      url: https://pokeapi.co
+
+      headers:
+        accept: application/json
+        keyword: pokemon
+        api-key: fjslkfj
+
+
+
+applicatation:
+  lynx-component:
+    credicard-card-header:
+      "hdrPTypeCode": 'C'
+      "hdrPTypeDesc": 'CREDIT CARD'
+      "hdrPTypeVersion": '1.0'
+      "hdrPTypeLength": '10'

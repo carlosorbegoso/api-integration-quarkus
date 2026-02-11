@@ -1,5 +1,6 @@
-package com.sky;
+package com.sky.application;
 
+import com.sky.NameParams;
 import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -11,7 +12,7 @@ import java.util.Map;
 @Path("/examples")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class GreetingResource {
+public class ParamsExampleResource {
     List<String> names = List.of("John", "Paul", "George", "Ringo", "Johnson");
 
     //Use query param to filter the list names in quarkus
@@ -62,6 +63,9 @@ public class GreetingResource {
 
     }
 
+    /**
+     * Registers cookie endpoint; returns filtered names based on cookie
+     */
     @GET
     @Path("/cookie")
     public Uni<Response> listNamesCookies(@CookieParam("name") String name) {
@@ -76,13 +80,15 @@ public class GreetingResource {
                 });
     }
 
+    /**
+     * Registers endpoint; returns filtered names based on bean parameter
+     */
     @GET
     @Path("/beans")
     public Uni<Response> listNamesBeansGroup(@BeanParam NameParams params){
-        System.out.println("Name: " + params.name());
-        System.out.println("Token: " + params.token());
         return Uni.createFrom().item(names)
                 .onItem().transform(list-> {
+                    // Filters list to names matching bean parameter
                     if(names != null && !names.isEmpty()){
                         list = list.stream()
                                 .filter(n -> n.equalsIgnoreCase(params.name()))
